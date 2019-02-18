@@ -1,5 +1,7 @@
 const express = require('express')
 const app = express()
+const overwatch = require('overwatch-api');
+
 
 app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
@@ -10,7 +12,6 @@ app.use(function (req, res, next) {
 
 app.post('/:platform/:reg/:tag', function(req, res) {
   res.setHeader('Content-Type', 'text/plain');
-  const overwatch = require('overwatch-api');
   var platform = req.params.platform;
   var reg = req.params.reg;
   var tag = req.params.tag;
@@ -27,6 +28,4 @@ app.post('/:platform/:reg/:tag', function(req, res) {
     
 
 
-app.listen(2000, function () {
-  console.log('Example app listening on port 2000!')
-})
+app.listen(process.env.PORT || 2000)
