@@ -1,6 +1,6 @@
 const express = require('express')
 const app = express()
-const overwatch = require('overwatch-api');
+const fetch = require("node-fetch");
 
 
 app.use(function (req, res, next) {
@@ -10,20 +10,17 @@ app.use(function (req, res, next) {
 })
 
 
-app.post('/:platform/:reg/:tag', function(req, res) {
-  res.setHeader('Content-Type', 'text/plain');
-  var platform = req.params.platform;
-  var reg = req.params.reg;
-  var tag = req.params.tag;
-
-  console.log(platform + " " + reg + " "+ tag) 
-
-  overwatch.getProfile(platform, reg, tag, (err, json) => {
-    if (err) console.error(err);
+app.get('/get/bar', function(req, res) {
+    res.setHeader('Content-Type', 'text/plain');
+    fetch('https://maps.googleapis.com/maps/api/place/textsearch/json?query=bar+in+Nantes&key=AIzaSyBHY26uk_J9tlNpTzrsay5DVXEcihryPVs')
+        .then(function(response) {
+        res.send(response)
+        
+    })
+    .catch(function(error) {
+        console.log(error)
+    });
     
-    console.log(json)
-    res.send(json);
-  });
 });
     
 
